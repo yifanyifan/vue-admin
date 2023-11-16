@@ -8,7 +8,7 @@ export default {
     },
     mounted() {
         // 先找全局状态，然后 点模块名，再 点属性名
-        console.log(this.$store.state.student.name);
+        // console.log(this.$store.state.student.name);
     }
 }
 </script>

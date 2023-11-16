@@ -15,7 +15,7 @@ export default {
         },
         importChange (event) {
             //选中文件后的回调函数
-            console.log(event.target.files[0]);
+            // console.log(event.target.files[0]);
             // 1. 获取到我们选中的文件
             const file = event.target.files[0];
             // 创建文件的加载器
@@ -31,7 +31,7 @@ export default {
                 // 将 工作表1 中的内容转换成 json
                 res = XLSX.utils.sheet_to_json(res);
 
-                console.log(res);
+                // console.log(res);
 
                 this.tableData = res;
             }

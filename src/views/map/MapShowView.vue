@@ -7,7 +7,7 @@ export default {
     },
     methods: {
         search() {
-            console.log(event.target.value);
+            // console.log(event.target.value);
             // var local = new BMapGL.LocalSearch(this.map, {
             //     renderOptions:{ map: this.map }
             // });
@@ -75,12 +75,12 @@ export default {
         var geolocation = new BMapGL.Geolocation();
         const _this = this;
         geolocation.getCurrentPosition(function(r){
-            console.log(r);
+            // console.log(r);
             if(this.getStatus() == BMAP_STATUS_SUCCESS){
                 var mk = new BMapGL.Marker(r.point);
                 _this.map.addOverlay(mk);
                 _this.map.panTo(r.point);
-                console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+                // console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
             }
             else {
                 alert('failed' + this.getStatus());

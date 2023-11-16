@@ -10,7 +10,7 @@ export default {
         // 用来处理将路由处理成 map
         this.initRoutesMap(routes)
 
-        console.log(this.routesMap);
+        // console.log(this.routesMap);
 
         return {
             list: []

@@ -18,7 +18,7 @@
         },
         mounted() {
             
-            console.log(22222222222,this.userInfo);
+            // console.log(22222222222,this.userInfo);
         },
     }
 </script>

@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     setCount () {
-      console.log(this.$store);
+      // console.log(this.$store);
       // .commit 是用来执行同步操作用的
       // 也就是用来执行 mutations 中的方法的
       // this.$store.commit('add');
