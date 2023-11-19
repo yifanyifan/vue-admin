@@ -11,7 +11,7 @@ export default {
   name: 'LoginView',
   data () {
     return {
-      adminname: '',
+      username: '',
       password: ''
     }
   },
@@ -21,9 +21,9 @@ export default {
   methods: {
     ...mapMutations(['updateUserInfo']),
     submitForm() {
-      // console.log("被调用了",this.adminname,this.password);
+      // console.log("被调用了",this.username,this.password);
 
-      // if(this.adminname.length < 5){
+      // if(this.username.length < 5){
       //   //长度不够
       //   ElMessage.error('管理员账号应大于5位');
       //   //让代码不再执行
@@ -47,17 +47,12 @@ export default {
       //   console.log(err);
       // })
       loginFn({
-        adminname: this.adminname,
+        username: this.username,
         password: this.password
       }).then(res => {
-        // console.log(res);
-        if(res.code === '10005') {
+        if(res.code != '200') {
           //未注册
-          ElMessage.error(res.message)
-          return
-        } else if(res.code === '10003') {
-          //密码错误
-          ElMessage.error(res.message)
+          ElMessage.error(res.msg)
           return
         } else {
           //第一种修改数据的方法
@@ -85,7 +80,7 @@ export default {
     <div class="form-wrap">
       <h2 class="header">{{ count }}封神登录 {{ $store.state.count }}</h2>
 
-      <el-input v-model="adminname" placeholder="请输入账号" />
+      <el-input v-model="username" placeholder="请输入账号" />
       <el-input class="psw" show-password type="password" v-model="password" @keyup.enter="submitForm" placeholder="请输入密码" />
       <el-button type="success" @click="submitForm">登录</el-button>
     </div>

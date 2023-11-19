@@ -19,6 +19,9 @@ const store = createStore({
             userInfo: {
 
             },
+            userAll: {
+                
+            },
             //记录当前的路由路径
             currentPath: '/',
             list: ['q','w','e','r']
@@ -34,9 +37,13 @@ const store = createStore({
         addNum (state, value) {
             state.count += value;
         },
-        // 保存用户数据
+        // 保存用户数据（Token）
         updateUserInfo (state, value) {
             state.userInfo = value;
+        },
+        // 保存用户信息（权限等）
+        updateUserAll (state, value) {
+            state.userAll = value;
         },
         //修改路由路径的方法
         updateCurrentPath(state, value) {

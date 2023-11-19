@@ -1,6 +1,5 @@
 <script>
     import { Avatar } from "@element-plus/icons-vue"
-
     import { mapState } from 'vuex'
 
     export default {
@@ -10,7 +9,7 @@
             }
         },
         computed: {
-            ...mapState(['currentPath', 'userInfo'])
+            ...mapState(['currentPath', 'userAll'])
         },
         props: ['collapse'],
         components: {
@@ -18,7 +17,6 @@
         },
         mounted() {
             
-            // console.log(22222222222,this.userInfo);
         },
     }
 </script>
@@ -26,8 +24,21 @@
 <template>
     <el-menu :default-active="currentPath" :collapse="collapse" router class="el-menu-vertical-demo">
         <el-menu-item>首页</el-menu-item>
+        <!-- {{ userAll }} -->
 
-        <el-sub-menu v-for="item in userInfo.checkedkeys" :key="item.path" :index="item.path">
+        <el-sub-menu v-for="item in userAll.menuList" :key="item.url" :index="item.url">
+            <template #title>
+                <el-icon>
+                    <Avatar/>
+                </el-icon>
+                <span>{{ item.name }}</span>
+            </template>
+            <el-menu-item v-for="child in item.submenus" :key="child.url" :index="`/${item.url}/${child.url}`">
+                {{ child.name }}
+            </el-menu-item>
+        </el-sub-menu>
+
+        <!-- <el-sub-menu v-for="item in userInfo.checkedkeys" :key="item.path" :index="item.path">
             <template #title>
                 <el-icon>
                     <Avatar/>
@@ -35,9 +46,7 @@
                 <span>{{ item.label }}</span>
             </template>
             <el-menu-item v-for="child in item.children" :key="child.path" :index="`/${item.path}/${child.path}`">{{ child.label }}</el-menu-item>
-
-        </el-sub-menu>
-
+        </el-sub-menu> -->
 
         <!-- <el-sub-menu index="/manager">
             <template #title>

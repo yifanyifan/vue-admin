@@ -18,7 +18,8 @@ const request = axios.create({
     // isDev 为真
     // baseURL: isDev ? '开发环境' : '生产环境'
     //baseURL: isDev ? 'http://121.89.205.189:3000/admin' : 'http://121.90.205.189:3000/admin'
-    baseURL: 'http://121.89.205.189:3000/admin',
+    // baseURL: 'http://121.89.205.189:3000/admin',
+    baseURL: 'http://192.168.52.10:8002',
     timeout: 60000
 });
 
@@ -29,12 +30,13 @@ request.interceptors.request.use(function (config) {
     // 每次请求都会执行
     // 在发送请求前我们可以将公用的属性设置上
     // 比如可以在这里配置对应的 token
-
-    // 1. 先获取token
-    const token = localStorage.getItem('token') || '';
-    // 2. 设置 token
-    config.headers.token = token;
-
+    if(localStorage.getItem('token')){
+        // 1. 先获取token
+        const token = localStorage.getItem('token') || '';
+        // 2. 设置 token
+        config.headers.Authorization = "Bearer " + token;
+    }
+    
     //console.log(config)
     return config;
 }, function (error) {
@@ -68,7 +70,7 @@ request.interceptors.response.use(function (response) {
 export default function ajax(config) {
     // 数据请求时我们需要什么参数
     // 1. 先获取请求的一些必要参数
-    const { url = '', method = 'GET', data = {}, headers = {} } = config
+    const { url = '', method = 'GET', data = {}, headers = {}, urlSearch = {} } = config
 
     // 2. 判断我们的请求的类型
     switch (method.toUpperCase()) {
@@ -76,6 +78,15 @@ export default function ajax(config) {
             // get 请求规定配置参数时需要加一个 { params: 我们的参数 }
             return request.get(url, { params: data })
         case 'POST':
+            // 判断是否是 JSON 数据提交
+            if (headers['content-type'] === 'application/json') {
+                // 将 URL 参数附加到 URL 中
+                const queryString = Object.keys(urlSearch).length > 0 ? new URLSearchParams(urlSearch).toString() : '';
+                const fullUrl = queryString ? `${url}?${queryString}` : url;
+                
+                // 发送 POST 请求
+                return request.post(fullUrl, data, { headers });
+            }
             // 1. 表单提交数据
             if (headers['content-type'] == 'application/x-www-form-url-encoded') {
                 //转换参数类型，格式化数据

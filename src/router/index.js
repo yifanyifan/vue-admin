@@ -13,6 +13,8 @@ import HomeView from '../views/HomeView.vue'
 // 导入管理员和用户的组件
 import ManagerIndexView from '@/views/manager/ManagerIndexView.vue'
 import ManagerListView from '@/views/manager/ManagerListView.vue'
+import RoleListView from '@/views/manager/RoleListView.vue'
+import PermissionListView from '@/views/manager/PermissionListView.vue'
 import UserListView from '@/views/manager/UserListView.vue'
 //导入轮播图管理相关组件
 import BannerIndexView from '../views/banner/BannerIndexView.vue'
@@ -59,125 +61,137 @@ export const routes = [{
         {
           path: 'managerlist',
           name: 'managerlist',
-          label: '管理员列表',
+          label: '用户列表',
           component: ManagerListView
         },
         {
-          path: 'userlist',
-          name: 'userlist',
-          label: '用户员列表',
-          component: UserListView
-        }
-      ]
-    },
-    {
-      path: 'banner',
-      name: 'banner',
-      label: '轮播图管理',
-      component: BannerIndexView,
-      children:[
-        {
-          path: 'bannerlist',
-          name: 'bannerlist',
-          label: '轮播图列表',
-          component: BannerListView
+          path: 'rolelist',
+          name: 'rolelist',
+          label: '角色列表',
+          component: RoleListView
         },
         {
-          path: 'addbanner',
-          name: 'addbanner',
-          label: '添加轮播图',
-          component: AddBannerView
+          path: 'permissionlist',
+          name: 'permissionlist',
+          label: '菜单列表',
+          component: PermissionListView
         }
+        // {
+        //   path: 'userlist',
+        //   name: 'userlist',
+        //   label: '用户员列表',
+        //   component: UserListView
+        // }
       ]
     },
-    {
-      path: 'pro',
-      name: 'pro',
-      label: '产品管理',
-      component: ProIndexView,
-      children:[
-        {
-          path: 'prolist',
-          name: 'prolist',
-          label: '产品列表',
-          component: ProListView
-        },
-        {
-          path: 'addpro',
-          name: 'addpro',
-          label: '添加产品',
-          component: AddProView
-        }
-      ]
-    },
-    {
-      path: 'echarts',
-      name: 'echarts',
-      label: '图表管理',
-      component: EChartsIndexView,
-      children:[
-        {
-          path: 'echartsshow',
-          name: 'echartsshow',
-          label: '显示图表',
-          component: EChartsShowView
-        },
-        {
-          path: 'echartsview',
-          name: 'echartsview',
-          label: '仪表现实',
-          component: EChartsView
-        }
-      ]
-    },
-    {
-      path: 'excel',
-      name: 'excel',
-      label: 'excel管理',
-      component: ExcelIndexView,
-      children:[
-        {
-          path: 'excelimport',
-          name: 'excelimport',
-          label: 'excel导入',
-          component: ExcelImportView
-        },
-        {
-          path: 'excelexport',
-          name: 'excelexport',
-          label: 'excel导出',
-          component: ExcelExportView
-        }
-      ]
-    },
-    {
-      path: 'editor',
-      name: 'editor',
-      label: '富文本编辑器',
-      component: EditorIndexView,
-      children:[
-        {
-          path: 'editorshow',
-          name: 'editorshow',
-          label: '编辑器',
-          component: EditorShowView
-        }
-      ]
-    },
-    {
-      path: 'map',
-      name: 'map',
-      label: '地图管理',
-      component: MapIndexView,
-      children:[
-        {
-          path: 'mapshow',
-          name: 'mapshow',
-          label: '百度地图',
-          component: MapShowView
-        }
-      ]
-    }
+    // {
+    //   path: 'banner',
+    //   name: 'banner',
+    //   label: '轮播图管理',
+    //   component: BannerIndexView,
+    //   children:[
+    //     {
+    //       path: 'bannerlist',
+    //       name: 'bannerlist',
+    //       label: '轮播图列表',
+    //       component: BannerListView
+    //     },
+    //     {
+    //       path: 'addbanner',
+    //       name: 'addbanner',
+    //       label: '添加轮播图',
+    //       component: AddBannerView
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: 'pro',
+    //   name: 'pro',
+    //   label: '产品管理',
+    //   component: ProIndexView,
+    //   children:[
+    //     {
+    //       path: 'prolist',
+    //       name: 'prolist',
+    //       label: '产品列表',
+    //       component: ProListView
+    //     },
+    //     {
+    //       path: 'addpro',
+    //       name: 'addpro',
+    //       label: '添加产品',
+    //       component: AddProView
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: 'echarts',
+    //   name: 'echarts',
+    //   label: '图表管理',
+    //   component: EChartsIndexView,
+    //   children:[
+    //     {
+    //       path: 'echartsshow',
+    //       name: 'echartsshow',
+    //       label: '显示图表',
+    //       component: EChartsShowView
+    //     },
+    //     {
+    //       path: 'echartsview',
+    //       name: 'echartsview',
+    //       label: '仪表现实',
+    //       component: EChartsView
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: 'excel',
+    //   name: 'excel',
+    //   label: 'excel管理',
+    //   component: ExcelIndexView,
+    //   children:[
+    //     {
+    //       path: 'excelimport',
+    //       name: 'excelimport',
+    //       label: 'excel导入',
+    //       component: ExcelImportView
+    //     },
+    //     {
+    //       path: 'excelexport',
+    //       name: 'excelexport',
+    //       label: 'excel导出',
+    //       component: ExcelExportView
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: 'editor',
+    //   name: 'editor',
+    //   label: '富文本编辑器',
+    //   component: EditorIndexView,
+    //   children:[
+    //     {
+    //       path: 'editorshow',
+    //       name: 'editorshow',
+    //       label: '编辑器',
+    //       component: EditorShowView
+    //     }
+    //   ]
+    // },
+    // {
+    //   path: 'map',
+    //   name: 'map',
+    //   label: '地图管理',
+    //   component: MapIndexView,
+    //   children:[
+    //     {
+    //       path: 'mapshow',
+    //       name: 'mapshow',
+    //       label: '百度地图',
+    //       component: MapShowView
+    //     }
+    //   ]
+    // }
   ]
 },
 {

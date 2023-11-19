@@ -5,27 +5,150 @@ import ajax from '@/utils/request'
 export function loginFn(params) {
     return ajax({ 
         method: 'POST',
-        url: '/admin/login',
-        data: params
+        url: '/sys/sso/login',
+        data: params,
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    })
+}
+// 首页，获取用户信息
+export function getUserAll() {
+    return ajax({ 
+        method: 'GET',
+        url: '/sys/sso/info'
     })
 }
 
-//获取管理员列表
-export function adminList() {
+
+// 用户管理，获取用户列表
+export function adminList(urlSearch, data) {
     return ajax({
-        url: '/admin/list',
-        method: 'GET'
+        url: '/sys/user/queryPageByParam',
+        method: 'POST',
+        urlSearch: urlSearch,
+        data: data,
+        headers: {
+            'content-type': 'application/json'
+        }
     });
 }
-
-//添加管理员
+//添加用户
 export function addAdmin(params) {
     return ajax({
-        url: '/admin/add',
+        url: '/sys/user/add',
         method: 'POST',
         data: params
     });
 }
+//根据用户ID获取用户权限
+export function getRoleByUserId(params) {
+    return ajax({
+        url: '/sys/role/getRoleByUserId/id/'+params,
+        method: 'GET'
+    });
+}
+
+
+
+
+
+// 角色管理，获取角色列表
+export function roleList(urlSearch, data) {
+    return ajax({
+        url: '/sys/role/queryPageByParam',
+        method: 'POST',
+        urlSearch: urlSearch,
+        data: data,
+        headers: {
+            'content-type': 'application/json'
+        }
+    });
+}
+//添加角色
+export function addRole(params) {
+    return ajax({
+        url: '/sys/role/add',
+        method: 'POST',
+        data: params
+    });
+}
+//角色列表
+export function roleAll(params) {
+    return ajax({
+        url: '/sys/role/queryByParam',
+        method: 'POST',
+        data: params
+    });
+}
+//根据角色ID获取已有菜单
+export function getPermissionByRoleId(params) {
+    return ajax({
+        url: '/sys/permission/getPermissionByRoleId/id/'+params,
+        method: 'GET'
+    });
+}
+
+
+
+// 菜单管理，获取菜单列表
+export function permissionList(urlSearch, data) {
+    return ajax({
+        url: '/sys/permission/queryPageByParam',
+        method: 'POST',
+        urlSearch: urlSearch,
+        data: data,
+        headers: {
+            'content-type': 'application/json'
+        }
+    });
+}
+//添加菜单
+export function addPermission(params) {
+    return ajax({
+        url: '/sys/permission/add',
+        method: 'POST',
+        data: params
+    });
+}
+//菜单列表
+export function permissionAll(params) {
+    return ajax({
+        url: '/sys/permission/queryByParam',
+        method: 'POST',
+        data: params
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //修改管理员
 export function updateAdmin(params) {
@@ -52,20 +175,3 @@ export function getUserList() {
         method: 'GET'
     });
 }
-
-
-
-// export function okx() {
-//     return ajax({
-//         url: 'https://www.okx.com/api/v5/rubik/stat/trading-data/support-coin',
-//         method: 'GET',
-//         headers: {
-//             'OK-ACCESS-KEY':'3eb826c1-0689-4c18-8a2b-cb38fbbc9ca7',
-//             'OK-ACCESS-SIGN':'gKstqVwV4ZRNuAecGLCP45mEAkrNlPUK8akTahxDakY=',
-//             'OK-ACCESS-TIMESTAMP':'2023-11-14T21:32:57.715Z',
-//             'OK-ACCESS-PASSPHRASE':'Yifan575884.'
-//         },
-//             withCredentials: true
-        
-//     });
-// }

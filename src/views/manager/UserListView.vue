@@ -11,7 +11,7 @@ export default {
     },
     mounted() {
         getUserList().then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.userlist = res.data;
         })
     },

@@ -5,6 +5,8 @@ import { Fold,Expand } from "@element-plus/icons-vue"
 //@ 代表是 src 路径
 import AsideCom from "@/components/AsideCom.vue";
 import BreadCrumbCom from "@/components/BreadCrumbCom.vue";
+import { getUserAll } from '@/api/user'
+import { mapMutations } from 'vuex'
 
 export default {
   //数据属性
@@ -17,11 +19,23 @@ export default {
   },
   // 生命周期函数
   mounted() {
-    // console.log(this.$store.state.userInfo.adminname);
-    if(!this.$store.state.userInfo.adminname){
-      // 用户没有登录
+    //用户未登录
+    if(!this.$store.state.userInfo.token){
       this.$router.push('/login');
     }
+    //加载用户权限
+    getUserAll().then(res => {
+      if(res.code != '200') {
+        console.log(res);
+        ElMessage.error(res.msg)
+        return
+      } else {
+        //修改数据
+        this.updateUserAll(res.data);
+        //将 userAll 存到本地
+        localStorage.setItem('userAll', JSON.stringify(res.data));
+      }
+    })
   },
   //计算属性
   computed: {
@@ -43,6 +57,7 @@ export default {
     BreadCrumbCom
   },
   methods: {
+    ...mapMutations(['updateUserAll']),
     setCount () {
       // console.log(this.$store);
       // .commit 是用来执行同步操作用的
@@ -60,8 +75,10 @@ export default {
     logout() {
       //清除本地存储
       localStorage.clear();
-      //删除vuex用户信息
+      //删除vuex用户信息Token
       this.$store.commit('updateUserInfo', {})
+      //删除vuex用户信息权限
+      this.$store.commit('updateUserAll', {})
       //跳转登录
       this.$router.push("/login");
     }
