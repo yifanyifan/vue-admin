@@ -1,5 +1,5 @@
 <script>
-import { roleList, addRole, permissionAll, updateAdmin, deleteAdmin, getPermissionByRoleId } from '@/api/user'
+import { roleList, addRole, listTree, updateAdmin, deleteRole, getPermissionByRoleId } from '@/api/user'
 
 import { routes } from '@/router/index.js'
 import { ElMessage } from 'element-plus'
@@ -61,7 +61,7 @@ export default {
             this.drawer = true;
             this.interfaceType = '10086'
             //获取菜单数据
-            permissionAll().then(res => {
+            listTree().then(res => {
                 this.permissions = res.data;
             })
         },
@@ -94,7 +94,7 @@ export default {
             this.formData.name = row.name;
 
             //获取所有菜单数据
-            permissionAll().then(res => {
+            listTree().then(res => {
                 this.permissions = res.data;
             })
 
@@ -126,15 +126,12 @@ export default {
 
         },
         deleteClick(row) {
-            // console.log(row);
-            deleteAdmin({ adminid: row.adminid }).then(res => {
+            deleteRole(row.id).then(res => {
                 if(res.code == '200'){
                     //成功
                     ElMessage.success(res.message);
                     //重新获取最新数据
-                    adminList().then(res => {
-                        this.tableData = res.data;
-                    })
+                    this.roleList();
                 }else{
                     ElMessage.error(res.message);
                 }

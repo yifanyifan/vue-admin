@@ -86,7 +86,6 @@ export default {
             //获取当前用户已有角色
             getRoleByUserId(row.id).then(res => {
                 res.data.forEach(item => {
-                    console.log(item.id);
                     checkedKeys.push(item.id);
                 })
                 this.defaultCheckedKeys = checkedKeys;
@@ -114,15 +113,12 @@ export default {
 
         },
         deleteClick(row) {
-            // console.log(row);
-            deleteAdmin({ adminid: row.adminid }).then(res => {
+            deleteAdmin(row.id).then(res => {
                 if(res.code == '200'){
                     //成功
                     ElMessage.success(res.message);
                     //重新获取最新数据
-                    adminList().then(res => {
-                        this.tableData = res.data;
-                    })
+                    this.adminList();
                 }else{
                     ElMessage.error(res.message);
                 }

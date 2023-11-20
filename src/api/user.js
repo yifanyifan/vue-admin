@@ -20,8 +20,8 @@ export function getUserAll() {
     })
 }
 
-
-// 用户管理，获取用户列表
+//=============================== 用户管理 ========================================================================
+// 分页列表
 export function adminList(urlSearch, data) {
     return ajax({
         url: '/sys/user/queryPageByParam',
@@ -48,12 +48,18 @@ export function getRoleByUserId(params) {
         method: 'GET'
     });
 }
+//删除用户
+export function deleteAdmin(params) {
+    return ajax({
+        url: '/sys/user/id/'+params,
+        method: 'DELETE',
+        data: params
+    });
+}
 
 
-
-
-
-// 角色管理，获取角色列表
+//=============================== 角色管理 ========================================================================
+// 分页列表
 export function roleList(urlSearch, data) {
     return ajax({
         url: '/sys/role/queryPageByParam',
@@ -88,10 +94,18 @@ export function getPermissionByRoleId(params) {
         method: 'GET'
     });
 }
+//删除角色
+export function deleteRole(params) {
+    return ajax({
+        url: '/sys/role/id/'+params,
+        method: 'DELETE',
+        data: params
+    });
+}
 
 
-
-// 菜单管理，获取菜单列表
+//=============================== 菜单管理 ========================================================================
+// 分页列表
 export function permissionList(urlSearch, data) {
     return ajax({
         url: '/sys/permission/queryPageByParam',
@@ -119,8 +133,22 @@ export function permissionAll(params) {
         data: params
     });
 }
-
-
+// 菜单列表（树结构）
+export function listTree(params) {
+    return ajax({
+        url: '/sys/permission/listTree',
+        method: 'POST',
+        data: params
+    });
+}
+//删除菜单
+export function deletePermission(params) {
+    return ajax({
+        url: '/sys/permission/id/'+params,
+        method: 'DELETE',
+        data: params
+    });
+}
 
 
 
@@ -159,14 +187,7 @@ export function updateAdmin(params) {
     });
 }
 
-//删除管理员
-export function deleteAdmin(params) {
-    return ajax({
-        url: '/admin/delete',
-        method: 'POST',
-        data: params
-    });
-}
+
 
 //获取用户列表
 export function getUserList() {
