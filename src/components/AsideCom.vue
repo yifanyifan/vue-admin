@@ -24,9 +24,8 @@
 <template>
     <el-menu :default-active="currentPath" :collapse="collapse" router class="el-menu-vertical-demo">
         <el-menu-item>首页</el-menu-item>
-        <!-- {{ userAll }} -->
 
-        <el-sub-menu v-for="item in userAll.menuList" :key="item.url" :index="item.url">
+        <el-sub-menu v-for="item in userAll.menuList" :key="item.id" :index="item.url">
             <template #title>
                 <el-icon>
                     <Avatar/>

@@ -1,5 +1,6 @@
 // 导入封装的axios
-import ajax from '@/utils/request'
+import ajax from '@/utils/request';
+import ajaxOkx from '@/utils/requestOkx';
 
 // 管理系统登录接口的封装
 export function loginFn(params) {
@@ -151,8 +152,32 @@ export function deletePermission(params) {
 }
 
 
+//=============================== 合约 ========================================================================
+//获取交易大数据支持币种 
+export function supportCoin() {
+    return ajaxOkx({
+        url: '/api/v5/rubik/stat/trading-data/support-coin',
+        method: 'GET'
+    });
+}
 
+//杠杆多空比 
+export function loanRatio(data) {
+    return ajaxOkx({
+        url: '/api/v5/rubik/stat/margin/loan-ratio',
+        method: 'GET',
+        data: data
+    });
+}
 
+//合约多空持仓人数比 
+export function longShortAccountRatio(data) {
+    return ajaxOkx({
+        url: '/api/v5/rubik/stat/contracts/long-short-account-ratio',
+        method: 'GET',
+        data: data
+    });
+}
 
 
 

@@ -122,3 +122,5 @@ export default function ajax(config) {
             return request.request(config);
     }
 }
+
+

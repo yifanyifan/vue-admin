@@ -54,7 +54,7 @@ export const routes = [{
     {
       path: 'manager',
       name: 'manager',
-      label: '账号管理',
+      label: '系统管理',
       component: ManagerIndexView,
       //配置三级路由
       children: [
@@ -76,34 +76,28 @@ export const routes = [{
           label: '菜单列表',
           component: PermissionListView
         }
+      ]
+    },
+    {
+      path: 'banner',
+      name: 'banner',
+      label: '合约概览',
+      component: BannerIndexView,
+      children:[
+        {
+          path: 'bannerlist',
+          name: 'bannerlist',
+          label: '合约概览图',
+          component: BannerListView
+        },
         // {
-        //   path: 'userlist',
-        //   name: 'userlist',
-        //   label: '用户员列表',
-        //   component: UserListView
+        //   path: 'addbanner',
+        //   name: 'addbanner',
+        //   label: '添加轮播图',
+        //   component: AddBannerView
         // }
       ]
     },
-    // {
-    //   path: 'banner',
-    //   name: 'banner',
-    //   label: '轮播图管理',
-    //   component: BannerIndexView,
-    //   children:[
-    //     {
-    //       path: 'bannerlist',
-    //       name: 'bannerlist',
-    //       label: '轮播图列表',
-    //       component: BannerListView
-    //     },
-    //     {
-    //       path: 'addbanner',
-    //       name: 'addbanner',
-    //       label: '添加轮播图',
-    //       component: AddBannerView
-    //     }
-    //   ]
-    // },
     // {
     //   path: 'pro',
     //   name: 'pro',

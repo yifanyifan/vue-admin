@@ -51,18 +51,6 @@ export default {
                 this.updateCurrentPath(route.path);
 
                 this.list = route.matched.map(item => {
-                    /*
-                        [
-                            {
-                                name: 'home',
-                                label: '首页'
-                            },
-                            {
-                                name: 'manager',
-                                label: '账号管理'
-                            }
-                        ]
-                    */
                     return {
                         name: item.name,
                         label: this.routesMap.get(item.name)
@@ -77,12 +65,6 @@ export default {
 <template>
     <el-breadcrumb separator="/">
         <el-breadcrumb-item v-for="item in list" :key="item.name" :to="{ name: item.name }">{{ item.label }}</el-breadcrumb-item>
-        <!-- <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-        <el-breadcrumb-item>
-            <a href="/">promotion management</a>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-        <el-breadcrumb-item>promotion detail</el-breadcrumb-item> -->
     </el-breadcrumb>
 </template>
 

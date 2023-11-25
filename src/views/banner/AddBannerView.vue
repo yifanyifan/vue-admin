@@ -1,64 +1,64 @@
 <script>
-import { Plus } from '@element-plus/icons-vue'
-import { addBanner } from '@/api/banner'
+// import { Plus } from '@element-plus/icons-vue'
+// import { addBanner } from '@/api/banner'
 
 export default {
     data () {
         return {
-            imageUrl: '',
-            formData: {
-                alt: '',
-                link: '',
-                img: ''
-            }
+            // imageUrl: '',
+            // formData: {
+            //     alt: '',
+            //     link: '',
+            //     img: ''
+            // }
         }
     },
-    components: {
-        Plus
-    },
-    methods: {
-        httpRequest (data) {
-            // console.log(data.file);
+    // components: {
+    //     Plus
+    // },
+    // methods: {
+    //     httpRequest (data) {
+    //         // console.log(data.file);
 
-            //根据文件生成一个图片的url地址，该地址是用于展示的临时的
-            // this.imageUrl = URL.createObjectURL(data.file);
+    //         //根据文件生成一个图片的url地址，该地址是用于展示的临时的
+    //         // this.imageUrl = URL.createObjectURL(data.file);
             
-            /*
-                1. 先获取用户选择的图片
-                2. 将用户选择的图片上传到存放图片的服务器，该服务器会给你返回一个图片地址
-                3. 将图片地址发送给自己的后端做存储
-            */
+    //         /*
+    //             1. 先获取用户选择的图片
+    //             2. 将用户选择的图片上传到存放图片的服务器，该服务器会给你返回一个图片地址
+    //             3. 将图片地址发送给自己的后端做存储
+    //         */
 
-            //创建一个文件加载器
-            let reader = new FileReader();
-            //指定加载器开始加载文件
-            reader.readAsDataURL(data.file);
-            //加载完成后的回调函数
-            reader.onload = () => {
-                //console.log(reader.result);
-                this.imageUrl = reader.result;
-                this.formData.img = reader.result;
-            }
+    //         //创建一个文件加载器
+    //         let reader = new FileReader();
+    //         //指定加载器开始加载文件
+    //         reader.readAsDataURL(data.file);
+    //         //加载完成后的回调函数
+    //         reader.onload = () => {
+    //             //console.log(reader.result);
+    //             this.imageUrl = reader.result;
+    //             this.formData.img = reader.result;
+    //         }
 
-        },
-        addBunner () {
-            // console.log(this.formData);
-            addBanner(this.formData).then(res => {
-                // console.log(res);
-                if(res.code == 200){
-                    //提交成功后进入轮播图列表查看
-                    this.$router.push("/banner/bannerlist")
-                }
-            })
-        }
-    }
+    //     },
+    //     addBunner () {
+    //         // console.log(this.formData);
+    //         addBanner(this.formData).then(res => {
+    //             // console.log(res);
+    //             if(res.code == 200){
+    //                 //提交成功后进入轮播图列表查看
+    //                 this.$router.push("/banner/bannerlist")
+    //             }
+    //         })
+    //     }
+    // }
 }
 
 </script>
 
 
 <template>
-    <div>
+    <!-- <div>
         添加轮播图
 
         <el-form>
@@ -81,10 +81,10 @@ export default {
 
             <el-button @click="addBunner">添加</el-button>
         </el-form>
-    </div>
+    </div> -->
 </template>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 .avatar-uploader .avatar {
   width: 178px;
   height: 178px;
@@ -113,4 +113,4 @@ export default {
   height: 178px;
   text-align: center;
 }
-</style>
+</style> -->
