@@ -17,8 +17,7 @@ export default {
                 { ccy: "ETH", begin: 1698768000000, end: new Date().getTime() },
                 { ccy: "RNDR", begin: 1698768000000, end: new Date().getTime() },
                 { ccy: "ARB", begin: 1698768000000, end: new Date().getTime() },
-                { ccy: "AGIX", begin: 1698768000000, end: new Date().getTime() },
-                // { ccy: "ORDI", begin: 1698768000000, end: new Date().getTime() },
+                { ccy: "ORDI", begin: 1698768000000, end: new Date().getTime() },
                 // { ccy: "BLUR", begin: 1698768000000, end: new Date().getTime() },
                 // { ccy: "YFII", begin: 1698768000000, end: new Date().getTime() },
             ]
@@ -122,7 +121,7 @@ export default {
     mounted() {
         //合约多空持仓人数比 
         this.changeType();
-        this.changeTypeTwo();
+        // this.changeTypeTwo();
         // this.supportCoin();
     }
 }

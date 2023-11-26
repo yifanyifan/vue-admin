@@ -33,8 +33,10 @@ import ExcelIndexView from '../views/excel/ExcelIndexView.vue'
 import ExcelExportView from '../views/excel/ExcelExportView.vue'
 import ExcelImportView from '../views/excel/ExcelImportView.vue'
 //富文本 管理
-import EditorIndexView from '../views/editor/EditorIndexView.vue'
-import EditorShowView from '../views/editor/EditorShowView.vue'
+import Brc20IndexView from '../views/brc20/Brc20IndexView.vue'
+import InscriptionsShowView from '../views/brc20/InscriptionsShowView.vue'
+import Brc20ShowView from '../views/brc20/Brc20ShowView.vue'
+
 //地图 管理
 import MapIndexView from '../views/map/MapIndexView.vue'
 import MapShowView from '../views/map/MapShowView.vue'
@@ -90,12 +92,26 @@ export const routes = [{
           label: '合约概览图',
           component: BannerListView
         },
-        // {
-        //   path: 'addbanner',
-        //   name: 'addbanner',
-        //   label: '添加轮播图',
-        //   component: AddBannerView
-        // }
+      ]
+    },
+    {
+      path: 'brc20',
+      name: 'brc20',
+      label: 'brc20',
+      component: Brc20IndexView,
+      children:[
+        {
+          path: 'inscriptionslist',
+          name: 'inscriptionslist',
+          label: 'Brc20列表',
+          component: InscriptionsShowView
+        },
+        {
+          path: 'brc20list',
+          name: 'brc20list',
+          label: 'Brc20列表',
+          component: Brc20ShowView
+        },
       ]
     },
     // {
