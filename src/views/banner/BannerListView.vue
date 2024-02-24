@@ -8,19 +8,25 @@ export default {
             legendData: [],
             series: [],
             data: {},
+            data2: [],
 
             legendDataTwo: [],
             seriesTwo: [],
             dataTwo: {},
             apiCalls: [
-                { ccy: "BTC", begin: 1698768000000, end: new Date().getTime() },
-                { ccy: "ETH", begin: 1698768000000, end: new Date().getTime() },
-                { ccy: "RNDR", begin: 1698768000000, end: new Date().getTime() },
-                { ccy: "ARB", begin: 1698768000000, end: new Date().getTime() },
-                { ccy: "ORDI", begin: 1698768000000, end: new Date().getTime() },
-                // { ccy: "BLUR", begin: 1698768000000, end: new Date().getTime() },
-                // { ccy: "YFII", begin: 1698768000000, end: new Date().getTime() },
-            ]
+                //"SATS","ORDI","STX","AIDOGE","BTC", "AXS","DOT",
+                //"ARB","OP","APT","AVAX","AAVE","ATOM","ADA","MATIC","LINK","SUI"
+                //"LTC","ETH","FIL","XRP","YFI","YFII","SOL","GRT","IMX",
+                //"SAND","SHIB","DOGE","PEPE","EOS","ETC","ETHW","FLOW","GALA"
+                //"AR","ANT","PEOPLE","TRX","WAVES","REN","SLP","BAT","BCH",
+                //"SUSHI","UNI","MANA","MASK","KSM","LDO","MAGIC","CFX","COMP","CRV",
+                "BNB","RON","NEAR","MINA","MKR","WLD","RNDR","DYDX","ENS",
+
+                //波动大在底部
+                //"FIL","DOGE","SLP","MASK","RON","APT","MATIC","SUI","ORDI",
+
+            ],
+            currentApiCallIndex: 0, // 记录当前轮询的apiCall索引
         }
     },
     methods: {
@@ -32,26 +38,54 @@ export default {
         },
         //合约多空持仓人数比
         async changeType(){
-            const responses = await Promise.all(this.apiCalls.map(apiCall => longShortAccountRatio(apiCall)));
-
-            responses.forEach((res, index) => {
-                const ccy = this.apiCalls[index].ccy;
-                (this.data[ccy] ??= []).push(...res.data.map(item => [new Date(parseInt(item[0])).toLocaleString(), item[1]]));
-
-                if (!this.series.find(series => series.name === ccy)) {
+            for(var yy = 0; yy < 5; yy++){
+                //发起请求
+                const apiCall = { ccy: this.apiCalls[this.currentApiCallIndex], begin: new Date().getTime() - 30 * 24 * 60 * 60 * 1000, end: new Date().getTime(), period: "1H" };
+                const response = await longShortAccountRatio(apiCall);
+                
+                
+                this.data2=[];
+                this.data2.push(...response.data.map(item => [new Date(parseInt(item[0])).toLocaleString(), item[1]]));
+                // 查找是否已存在该币种的 series
+                const ccy = apiCall.ccy;
+                const existingSeries = this.series.find(series => series.name === ccy);
+                //如果已存在，则更新数据；否则，添加新的 series
+                if (existingSeries) {
+                    existingSeries.data = this.data2;
+                } else {
                     this.series.push({
                         name: ccy,
                         type: 'line',
                         showSymbol: false,
-                        data: this.data[ccy]
+                        smooth: true,
+                        emphasis: {
+                            focus: 'series'
+                        },
+                        endLabel: {
+                            show: true,
+                            formatter: '{a}',
+                            distance: 5
+                        },
+                        data: this.data2
                     });
                     this.legendData.push(ccy);
                 }
-            });
+                this.initCharts('main', '合约多空持仓人数比', this.legendData, this.series);
 
-            this.initCharts('main','合约多空持仓人数比', this.legendData, this.series);
+                // 增加索引，循环选择下一个 apiCall
+                this.currentApiCallIndex = (this.currentApiCallIndex + 1) % this.apiCalls.length;
+            }
         },
-
+        // 启动定时器，在每5秒调用一次changeType方法
+        startPolling() {
+            this.pollingInterval = setInterval(() => {
+                this.changeType();
+            }, 10000);
+        },
+        // 停止定时器
+        stopPolling() {
+            clearInterval(this.pollingInterval);
+        },
         //杠杆多空比
         async changeTypeTwo(){
             const responses = await Promise.all(this.apiCalls.map(apiCall => loanRatio(apiCall)));
@@ -73,10 +107,11 @@ export default {
 
             this.initCharts('main2','杠杆多空比 ', this.legendDataTwo, this.seriesTwo);
         },
-
         //初始化图表
         initCharts(id, title, legendData, series){
+
             let chart = echarts.init(document.getElementById(id));
+
             chart.setOption({
                 title: {
                     text: title
@@ -98,7 +133,7 @@ export default {
                 yAxis: {
                     type: 'value',
                     //留白策略
-                    boundaryGap: [0, '10%'],
+                    boundaryGap: [0, '2%'],
                     splitLine: {
                         show: true
                     },
@@ -118,11 +153,19 @@ export default {
             });
         }
     },
+
+    
+
     mounted() {
         //合约多空持仓人数比 
-        this.changeType();
+        this.startPolling();
+        //this.changeType();
         // this.changeTypeTwo();
         // this.supportCoin();
+    },
+    beforeDestroy() {
+        // 在组件销毁前停止轮询
+        this.stopPolling();
     }
 }
 </script>
@@ -134,11 +177,11 @@ export default {
 
 <style lang="scss" scoped>
 #main {
-    height: 600px;
+    height: 1100px;
     background-color: white;
 }
 #main2 {
-    height: 600px;
+    height: 1000px;
     background-color: white;
 }
 </style>
