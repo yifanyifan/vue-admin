@@ -26,12 +26,12 @@ requestOkx.interceptors.request.use(function (config) {
     urlAll = urlAll.slice(0, -1);
     //2023-11-21T14:31:42.224ZGET/api/v5/rubik/stat/contracts/long-short-account-ratio?ccy=BTC
 
-    const sign=CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(urlAll, "16FEFB4185B26F02DBCA2D4651B099CE"))
+    const sign=CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(urlAll, "!!!!!!!!!!!!!!!!!!!!!!"))
 
-    config.headers['OK-ACCESS-KEY'] = '1f5bbcee-a4b7-413e-a7af-22e63fd5789f';
+    config.headers['OK-ACCESS-KEY'] = '!!!!!!!!!!!!!!!!!!!!!!';
     config.headers['OK-ACCESS-SIGN'] = sign;
     config.headers['OK-ACCESS-TIMESTAMP'] = timestamp;
-    config.headers['OK-ACCESS-PASSPHRASE'] = 'Yifan575884.';
+    config.headers['OK-ACCESS-PASSPHRASE'] = '!!!!!!!!!!!!!!!!!!!!!!';
     config.headers['Access-Control-Allow-Origin'] = '*';
     config.headers['Access-Control-Allow-Origin-Method'] = 'POST,GET';
     config.headers['content-type'] = 'application/json';
